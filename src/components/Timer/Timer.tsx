@@ -26,17 +26,18 @@ export function Timer() {
     : timer.mode === 'shortBreak' ? timer.shortBreakDuration * 60
     : timer.longBreakDuration * 60
   const progress = duration > 0 ? 1 - timer.timeRemaining / duration : 0
-  const circumference = 2 * Math.PI * 120
+  const r = 96
+  const circumference = 2 * Math.PI * r
   const offset = circumference * (1 - progress)
 
   return (
     <div className="flex flex-col items-center">
-      <div className="flex gap-2 mb-8">
+      <div className="flex gap-2 mb-5">
         {(['focus', 'shortBreak', 'longBreak'] as const).map((m) => (
           <button
             key={m}
             onClick={() => timer.setMode(m)}
-            className={`px-4 py-1.5 rounded-full text-sm font-medium transition-all duration-300 ${
+            className={`px-3.5 py-1 rounded-full text-xs font-medium transition-all duration-300 ${
               timer.mode === m
                 ? 'bg-white/10 text-[#F8FAFC]'
                 : 'text-white/40 hover:text-white/60'
@@ -47,11 +48,11 @@ export function Timer() {
         ))}
       </div>
 
-      <div className="relative mb-8">
-        <svg width="280" height="280" className="transform -rotate-90">
-          <circle cx="140" cy="140" r="120" fill="none" stroke="rgba(255,255,255,0.05)" strokeWidth="4" />
+      <div className="relative mb-5">
+        <svg width="220" height="220" className="transform -rotate-90">
+          <circle cx="110" cy="110" r={r} fill="none" stroke="rgba(255,255,255,0.05)" strokeWidth="4" />
           <motion.circle
-            cx="140" cy="140" r="120" fill="none"
+            cx="110" cy="110" r={r} fill="none"
             className={modeRings[timer.mode]}
             strokeWidth="4"
             strokeLinecap="round"
@@ -63,27 +64,27 @@ export function Timer() {
         <div className="absolute inset-0 flex flex-col items-center justify-center">
           <motion.span
             key={timer.timeRemaining}
-            className="text-6xl font-light tracking-tight text-[#F8FAFC]"
+            className="text-5xl font-light tracking-tight text-[#F8FAFC]"
             initial={{ opacity: 0.8, scale: 0.98 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.15 }}
           >
             {formatTime(timer.timeRemaining)}
           </motion.span>
-          <span className={`text-sm mt-2 font-medium ${modeColors[timer.mode]}`}>
+          <span className={`text-xs mt-1.5 font-medium ${modeColors[timer.mode]}`}>
             {modeLabels[timer.mode]}
           </span>
         </div>
       </div>
 
-      <div className="flex gap-4">
+      <div className="flex gap-3">
         {!timer.isRunning ? (
           <motion.button
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
             onClick={timer.start}
             disabled={timer.timeRemaining <= 0}
-            className="px-10 py-3 rounded-full bg-[#4F8CFF] text-white font-semibold text-base hover:bg-[#3d7ae8] transition-colors disabled:opacity-30"
+            className="px-8 py-2.5 rounded-full bg-[#4F8CFF] text-white font-semibold text-sm hover:bg-[#3d7ae8] transition-colors disabled:opacity-30"
           >
             Start
           </motion.button>
@@ -92,7 +93,7 @@ export function Timer() {
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
             onClick={timer.pause}
-            className="px-10 py-3 rounded-full bg-white/10 text-[#F8FAFC] font-semibold text-base hover:bg-white/15 transition-colors"
+            className="px-8 py-2.5 rounded-full bg-white/10 text-[#F8FAFC] font-semibold text-sm hover:bg-white/15 transition-colors"
           >
             Pause
           </motion.button>
@@ -101,7 +102,7 @@ export function Timer() {
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
           onClick={timer.reset}
-          className="px-6 py-3 rounded-full bg-white/5 text-white/60 font-medium text-sm hover:bg-white/10 transition-colors"
+          className="px-5 py-2.5 rounded-full bg-white/5 text-white/60 font-medium text-xs hover:bg-white/10 transition-colors"
         >
           Reset
         </motion.button>
@@ -109,7 +110,7 @@ export function Timer() {
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
           onClick={timer.skip}
-          className="px-6 py-3 rounded-full bg-white/5 text-white/40 font-medium text-sm hover:bg-white/10 transition-colors"
+          className="px-5 py-2.5 rounded-full bg-white/5 text-white/40 font-medium text-xs hover:bg-white/10 transition-colors"
         >
           Skip
         </motion.button>

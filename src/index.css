@@ -16,20 +16,30 @@
 }
 
 html {
+  height: 100dvh;
+  overflow: hidden;
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
 }
 
 body {
+  height: 100dvh;
+  overflow: hidden;
   margin: 0;
   padding: 0;
   background: #0B0F17;
   color: #F8FAFC;
   font-family: 'Inter', 'SF Pro Display', system-ui, -apple-system, sans-serif;
   overscroll-behavior: none;
-  overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  position: fixed;
+  inset: 0;
+}
+
+#root {
+  height: 100dvh;
+  overflow: hidden;
 }
 
 body::-webkit-scrollbar {
@@ -68,4 +78,14 @@ input[type="number"] {
 ::selection {
   background: rgba(79, 140, 255, 0.3);
   color: #F8FAFC;
+}
+
+.scrollable-content {
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.scrollable-content::-webkit-scrollbar {
+  display: none;
 }
