@@ -71,9 +71,12 @@ export function useTimer(): UseTimerReturn {
     document.addEventListener('visibilitychange', handleVisibility)
     return () => {
       document.removeEventListener('visibilitychange', handleVisibility)
-      clearTimer()
     }
-  }, [syncTimer, clearTimer])
+  }, [syncTimer])
+
+  useEffect(() => {
+    return () => clearTimer()
+  }, [clearTimer])
 
   const getDuration = useCallback(
     (m: TimerMode) => {
